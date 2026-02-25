@@ -67,21 +67,39 @@ const destinations = data.destinations;
       "image"
       "tabs";
     padding-top: 1.5rem;
+    row-gap: 3rem;
 
     > :global(.numbered-title) {
       grid-area: title;
-      width: 100%;
+
+      @include tablet {
+        width: 100%;
+      }
     }
 
     @include desktop {
-      align-content: start;
+      row-gap: 10rem;
       grid-template-areas:
         ". title title ."
         ". image tabs .";
       grid-template-columns:
-        minmax(1rem, 1fr) minmax(0, 40rem) minmax(0, 40rem)
+        minmax(1rem, 1fr)
+        minmax(0, 40rem)
+        minmax(0, 40rem)
         minmax(1rem, 1fr);
-      row-gap: 10rem;
+    }
+
+    @include desktop {
+      align-content: start;
+
+      grid-template-areas:
+        ". title title ."
+        ". image tabs .";
+      grid-template-columns:
+        minmax(1rem, 1fr)
+        minmax(0, 40rem)
+        minmax(0, 40rem)
+        minmax(1rem, 1fr);
     }
   }
 
@@ -89,7 +107,11 @@ const destinations = data.destinations;
     grid-area: image;
     width: 100%;
     display: flex;
-    justify-content: end;
+    justify-content: center;
+
+    @include desktop {
+      justify-content: end;
+    }
 
     picture {
       max-width: 60%;
