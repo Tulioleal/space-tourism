@@ -1,0 +1,58 @@
+---
+interface Props {
+  count: number;
+}
+
+const { count } = Astro.props;
+---
+
+<div class="dot-indicators" role="tablist">
+  {
+    Array.from({ length: count }, (_, i) => (
+      <button
+        class="dot-button"
+        role="tab"
+        aria-selected={i === 0 ? "true" : "false"}
+        data-index={i}
+      >
+        <span class="sr-only">Slide {i + 1}</span>
+      </button>
+    ))
+  }
+</div>
+
+<style lang="scss">
+  @use "../styles/variables" as *;
+
+  .dot-indicators {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+
+    @media (min-width: $bp-desktop) {
+      justify-content: flex-start;
+    }
+  }
+
+  .dot-button {
+    cursor: pointer;
+    border: 0;
+    border-radius: 50%;
+    width: 10px;
+    aspect-ratio: 1;
+    background-color: hsl(0 0% 100% / 0.17);
+    padding: 0;
+
+    &:hover {
+      background-color: hsl(0 0% 100% / 0.5);
+    }
+
+    &[aria-selected="true"] {
+      background-color: hsl(0 0% 100% / 1);
+    }
+
+    @media (min-width: $bp-desktop) {
+      width: 15px;
+    }
+  }
+</style>

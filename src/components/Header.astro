@@ -1,0 +1,187 @@
+---
+interface Props {
+  activeNav: string;
+}
+
+const { activeNav } = Astro.props;
+
+const navItems = [
+  { number: "00", text: "Home", href: "/" },
+  { number: "01", text: "Destination", href: "/destination" },
+  { number: "02", text: "Crew", href: "/crew" },
+  { number: "03", text: "Technology", href: "/technology" },
+];
+---
+
+<header class="primary-header">
+  <div>
+    <a href="/">
+      <img
+        src="/assets/shared/logo.svg"
+        alt="Space tourism logo"
+        class="logo"
+      />
+    </a>
+  </div>
+  <button
+    class="mobile-nav-toggle"
+    aria-controls="primary-navigation"
+    aria-expanded="false"
+  >
+    <span class="sr-only">Menu</span>
+  </button>
+  <nav>
+    <ul id="primary-navigation" class="primary-navigation" data-visible="false">
+      {
+        navItems.map((item) => (
+          <li class={activeNav === item.text.toLowerCase() ? "active" : ""}>
+            <a href={item.href} class="ff-sans-cond uppercase letter-spacing-2">
+              <span aria-hidden="true">{item.number}</span>
+              {item.text}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<style lang="scss">
+  @use "../styles/variables" as *;
+  @use "../styles/mixins" as *;
+
+  .primary-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 1rem;
+
+    @include desktop {
+      padding: 2.5rem 0 2.5rem 3.5rem;
+
+      &::after {
+        content: "";
+        display: block;
+        position: relative;
+        height: 1px;
+        width: 100%;
+        background: hsl(0 0% 100% / 0.25);
+        order: 1;
+        margin-right: -2.5rem;
+        z-index: 10;
+      }
+
+      nav {
+        order: 2;
+      }
+    }
+  }
+
+  .logo {
+    min-width: 40px;
+
+    @include tablet {
+      min-width: 48px;
+    }
+  }
+
+  .primary-navigation {
+    display: flex;
+    gap: clamp(1.5rem, 5vw, 3.5rem);
+    padding: 0;
+    margin: 0;
+    background: hsl(0 0% 100% / 0.05);
+    backdrop-filter: blur(1.5rem);
+
+    @include tablet {
+      padding-inline: clamp(3rem, 7vw, 7rem);
+    }
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      padding-block: 2rem;
+      border: 0;
+      border-bottom: 3px solid transparent;
+      font-size: $fs-300;
+
+      &:hover {
+        border-color: hsl(0 0% 100% / 0.5);
+      }
+
+      span {
+        font-weight: 700;
+        margin-right: 0.5em;
+
+        @include tablet {
+          display: none;
+        }
+
+        @include desktop {
+          display: inline;
+        }
+      }
+    }
+
+    li.active a {
+      border-color: $clr-white;
+    }
+  }
+
+  .mobile-nav-toggle {
+    display: none;
+  }
+
+  @media (max-width: 34.999em) {
+    .primary-navigation {
+      position: fixed;
+      z-index: 1000;
+      inset: 0 0 0 30%;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: min(20rem, 15vh) 2rem;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+
+      &[data-visible="true"] {
+        transform: translateX(0);
+      }
+
+      a {
+        padding-block: 0.5rem;
+        border-bottom: none;
+      }
+    }
+
+    .mobile-nav-toggle {
+      display: block;
+      position: absolute;
+      z-index: 2000;
+      right: 1rem;
+      top: 2rem;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      width: 1.5rem;
+      aspect-ratio: 1;
+      background-image: url("/assets/shared/icon-hamburger.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+
+      &[aria-expanded="true"] {
+        background-image: url("/assets/shared/icon-close.svg");
+      }
+    }
+  }
+</style>
+
+<script>
+  const nav = document.querySelector(".primary-navigation");
+  const navToggle = document.querySelector(".mobile-nav-toggle");
+
+  navToggle?.addEventListener("click", () => {
+    const isVisible = nav?.getAttribute("data-visible") === "true";
+    nav?.setAttribute("data-visible", String(!isVisible));
+    navToggle.setAttribute("aria-expanded", String(!isVisible));
+  });
+</script>

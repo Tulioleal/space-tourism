@@ -1,0 +1,55 @@
+---
+interface Props {
+  items: string[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="tab-list" role="tablist">
+  {
+    items.map((item, i) => (
+      <button
+        class="tab-button ff-sans-cond uppercase letter-spacing-2"
+        role="tab"
+        aria-selected={i === 0 ? "true" : "false"}
+        data-index={i}
+      >
+        {item}
+      </button>
+    ))
+  }
+</div>
+
+<style lang="scss">
+  @use "../styles/variables" as *;
+
+  .tab-list {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+
+    @media (min-width: $bp-desktop) {
+      justify-content: flex-start;
+    }
+  }
+
+  .tab-button {
+    background: transparent;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    color: $clr-light;
+    padding-block: 0.75rem;
+    cursor: pointer;
+    font-size: $fs-300;
+
+    &:hover {
+      border-color: hsl(0 0% 100% / 0.5);
+    }
+
+    &[aria-selected="true"] {
+      color: $clr-white;
+      border-color: $clr-white;
+    }
+  }
+</style>

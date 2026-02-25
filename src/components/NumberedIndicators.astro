@@ -1,0 +1,71 @@
+---
+interface Props {
+  count: number;
+}
+
+const { count } = Astro.props;
+---
+
+<div class="numbered-indicators" role="tablist">
+  {
+    Array.from({ length: count }, (_, i) => (
+      <button
+        class="number-button ff-serif"
+        role="tab"
+        aria-selected={i === 0 ? "true" : "false"}
+        data-index={i}
+      >
+        {i + 1}
+      </button>
+    ))
+  }
+</div>
+
+<style lang="scss">
+  @use "../styles/variables" as *;
+  @use "../styles/mixins" as *;
+
+  .numbered-indicators {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+
+    @include desktop {
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+  }
+
+  .number-button {
+    cursor: pointer;
+    border: 1px solid hsl(0 0% 100% / 0.25);
+    border-radius: 50%;
+    width: 40px;
+    aspect-ratio: 1;
+    background-color: transparent;
+    color: $clr-white;
+    font-size: $fs-600;
+    padding: 0;
+    display: grid;
+    place-items: center;
+
+    &:hover {
+      border-color: $clr-white;
+    }
+
+    &[aria-selected="true"] {
+      background-color: $clr-white;
+      color: $clr-dark;
+    }
+
+    @include tablet {
+      width: 60px;
+      font-size: $fs-700;
+    }
+
+    @include desktop {
+      width: 80px;
+      font-size: $fs-800;
+    }
+  }
+</style>
