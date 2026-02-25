@@ -1,0 +1,27 @@
+{
+  "name": "space-tourism",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.17.1"
+  },
+  "devDependencies": {
+    "lint-staged": "^15.4.3",
+    "prettier": "^3.5.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "sass": "^1.97.3",
+    "simple-git-hooks": "^2.11.1"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*.{astro,scss,css,js,ts,json,md}": "prettier --write"
+  }
+}
