@@ -61,6 +61,8 @@ import MainLayout from "../layouts/MainLayout.astro";
   .grid-container--home {
     padding-top: 2rem;
     padding-bottom: 4rem;
+    align-items: center;
+    gap: 2rem;
 
     > * {
       max-width: 50ch;
@@ -68,7 +70,6 @@ import MainLayout from "../layouts/MainLayout.astro";
 
     @include desktop {
       margin-top: auto;
-      align-items: end;
       padding-bottom: max(6rem, 20vh);
 
       > *:first-child {
@@ -92,6 +93,7 @@ import MainLayout from "../layouts/MainLayout.astro";
     position: relative;
     z-index: 1;
     font-size: 1.25rem;
+    margin-top: 3rem;
 
     &::after {
       content: "";

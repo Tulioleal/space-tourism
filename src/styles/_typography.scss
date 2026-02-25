@@ -49,11 +49,7 @@
 .fs-500 {
   font-size: $fs-500;
   line-height: 1.2;
-}
-// Preset 9 — Barlow 18px (body)
-.fs-400 {
-  font-size: $fs-400;
-  line-height: 1.8;
+  letter-spacing: 4px;
 }
 // Preset 6 — Bellefair 28px
 .fs-300 {
@@ -63,6 +59,12 @@
 .fs-200 {
   font-size: $fs-200;
   line-height: 1.2;
+  letter-spacing: 2px;
+}
+// Preset 9 — Barlow 18px (body)
+.fs-400 {
+  font-size: $fs-400;
+  line-height: 1.8;
 }
 
 .text-dark {

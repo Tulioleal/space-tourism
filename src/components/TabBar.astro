@@ -26,10 +26,10 @@ const { items } = Astro.props;
 
   .tab-list {
     display: flex;
-    gap: 1.5rem;
-    justify-content: center;
+    justify-content: space-evenly;
 
     @media (min-width: $bp-desktop) {
+      gap: 1.5rem;
       justify-content: flex-start;
     }
   }
