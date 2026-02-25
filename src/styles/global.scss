@@ -1,0 +1,83 @@
+@use "variables" as *;
+@use "mixins" as *;
+@use "reset";
+@use "typography";
+
+// Page wrapper with responsive backgrounds
+.page-wrapper {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+
+  &--home {
+    @include responsive-bg("home");
+  }
+  &--destination {
+    @include responsive-bg("destination");
+  }
+  &--crew {
+    @include responsive-bg("crew");
+  }
+  &--technology {
+    @include responsive-bg("technology");
+  }
+}
+
+// Layout utilities
+.container {
+  padding-inline: $container-padding;
+  margin-inline: auto;
+  max-width: 80rem;
+
+  @include tablet {
+    padding-inline: 2.5rem;
+  }
+
+  @include desktop {
+    padding-inline: 3.5rem;
+  }
+}
+
+.grid-container {
+  display: grid;
+  text-align: center;
+  place-items: center;
+  padding-inline: 1rem;
+  padding-bottom: 4rem;
+
+  @include tablet {
+    padding-inline: 2.5rem;
+  }
+
+  @include desktop {
+    text-align: left;
+    column-gap: 2rem;
+    grid-template-columns: minmax(1rem, 1fr) repeat(2, minmax(0, 40rem)) minmax(
+        1rem,
+        1fr
+      );
+    padding-bottom: 0;
+  }
+}
+
+// Visually hidden (accessible)
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Content panel visibility
+[data-visible="false"] {
+  display: none;
+}
+
+[data-visible="true"] {
+  display: block;
+}

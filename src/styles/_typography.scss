@@ -1,0 +1,104 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.ff-serif {
+  font-family: $ff-serif;
+}
+.ff-sans-cond {
+  font-family: $ff-sans-cond;
+}
+.ff-sans {
+  font-family: $ff-sans;
+}
+
+.letter-spacing-1 {
+  letter-spacing: 4.75px;
+}
+.letter-spacing-2 {
+  letter-spacing: 2.7px;
+}
+.letter-spacing-3 {
+  letter-spacing: 2.35px;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.fs-900 {
+  font-size: $fs-900;
+}
+.fs-800 {
+  font-size: $fs-800;
+}
+.fs-700 {
+  font-size: $fs-700;
+}
+.fs-600 {
+  font-size: $fs-600;
+}
+.fs-500 {
+  font-size: $fs-500;
+}
+.fs-400 {
+  font-size: $fs-400;
+}
+.fs-300 {
+  font-size: $fs-300;
+}
+.fs-200 {
+  font-size: $fs-200;
+}
+
+.fs-900,
+.fs-800,
+.fs-700,
+.fs-600 {
+  line-height: 1.1;
+}
+
+.text-dark {
+  color: $clr-dark;
+}
+.text-light {
+  color: $clr-light;
+}
+.text-white {
+  color: $clr-white;
+}
+
+@include tablet {
+  .fs-800 {
+    font-size: 5rem;
+  }
+  .fs-700 {
+    font-size: 2.5rem;
+  }
+  .fs-600 {
+    font-size: 1.5rem;
+  }
+  .fs-500 {
+    font-size: 1.25rem;
+  }
+  .fs-400 {
+    font-size: 1rem;
+  }
+}
+
+@include desktop {
+  .fs-800 {
+    font-size: 6.25rem;
+  }
+  .fs-700 {
+    font-size: 3.5rem;
+  }
+  .fs-600 {
+    font-size: 2rem;
+  }
+  .fs-500 {
+    font-size: 1.75rem;
+  }
+  .fs-400 {
+    font-size: 1.125rem;
+  }
+}

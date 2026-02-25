@@ -1,0 +1,26 @@
+// Colors
+$clr-dark: hsl(230, 35%, 7%);
+$clr-light: hsl(231, 77%, 90%);
+$clr-white: hsl(0, 0%, 100%);
+
+// Font families
+$ff-serif: "Bellefair", serif;
+$ff-sans-cond: "Barlow Condensed", sans-serif;
+$ff-sans: "Barlow", sans-serif;
+
+// Font sizes (mobile-first)
+$fs-900: clamp(5rem, 8vw + 1rem, 9.375rem);
+$fs-800: 3.5rem;
+$fs-700: 1.5rem;
+$fs-600: 1rem;
+$fs-500: 1rem;
+$fs-400: 0.9375rem;
+$fs-300: 1rem;
+$fs-200: 0.875rem;
+
+// Breakpoints
+$bp-tablet: 35em; // 560px
+$bp-desktop: 45em; // 720px
+
+// Spacing
+$container-padding: 1.5rem;
