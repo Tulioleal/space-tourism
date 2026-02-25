@@ -13,6 +13,8 @@
     "astro": "^5.17.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.4.2",
+    "@commitlint/config-conventional": "^20.4.2",
     "@eslint/js": "^10.0.1",
     "eslint": "^10.0.2",
     "eslint-plugin-astro": "^1.6.0",
@@ -24,7 +26,9 @@
     "typescript-eslint": "^8.56.1"
   },
   "simple-git-hooks": {
-    "pre-commit": "npx lint-staged"
+    "pre-commit": "npx lint-staged",
+    "commit-msg": "npx commitlint --edit $1",
+    "pre-push": "branch=$(git rev-parse --abbrev-ref HEAD) && if echo \"$branch\" | grep -qE '^(main|master|develop)$'; then exit 0; elif echo \"$branch\" | grep -qE '^(feat|fix|chore|docs|style|refactor|test|build|ci|perf)/.+$'; then exit 0; else echo \"Branch name '$branch' does not follow type/description convention\" && exit 1; fi"
   },
   "lint-staged": {
     "*.{astro,js,ts}": "eslint --fix",
