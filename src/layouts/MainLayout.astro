@@ -1,0 +1,35 @@
+---
+import Header from "../components/Header.astro";
+import "../styles/global.scss";
+
+interface Props {
+  title: string;
+  section: "home" | "destination" | "crew" | "technology";
+}
+
+const { title, section } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&family=Barlow+Condensed:wght@400;700&family=Bellefair&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class={`page-wrapper page-wrapper--${section}`}>
+      <Header activeNav={section} />
+      <main>
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

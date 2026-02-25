@@ -1,0 +1,157 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import NumberedTitle from "../components/NumberedTitle.astro";
+import DotIndicators from "../components/DotIndicators.astro";
+import data from "../data/data.json";
+
+const crew = data.crew;
+---
+
+<MainLayout title="Space Tourism | Crew" section="crew">
+  <section class="grid-container grid-container--crew">
+    <NumberedTitle number="02" text="Meet your crew" />
+
+    <div class="crew-info">
+      <DotIndicators count={crew.length} />
+
+      {
+        crew.map((member, i) => (
+          <article
+            class="content-panel"
+            data-visible={i === 0 ? "true" : "false"}
+          >
+            <header>
+              <h2
+                class="fs-600 ff-serif uppercase text-light"
+                style="opacity: 0.5"
+              >
+                {member.role}
+              </h2>
+              <p class="fs-700 ff-serif uppercase">{member.name}</p>
+            </header>
+            <p class="text-light crew-bio">{member.bio}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="crew-images">
+      {
+        crew.map((member, i) => (
+          <picture
+            class="content-panel"
+            data-visible={i === 0 ? "true" : "false"}
+          >
+            <source srcset={member.images.webp} type="image/webp" />
+            <img src={member.images.png} alt={member.name} />
+          </picture>
+        ))
+      }
+    </div>
+  </section>
+</MainLayout>
+
+<style lang="scss">
+  @use "../styles/variables" as *;
+  @use "../styles/mixins" as *;
+
+  .grid-container--crew {
+    grid-template-areas:
+      "title"
+      "image"
+      "dots"
+      "info";
+    padding-top: 1.5rem;
+
+    @include tablet {
+      grid-template-areas:
+        "title"
+        "info"
+        "dots"
+        "image";
+    }
+
+    @include desktop {
+      justify-items: start;
+      grid-template-areas:
+        ". title title ."
+        ". info image ."
+        ". info image .";
+      grid-template-columns: minmax(1rem, 1fr) minmax(0, 40rem) minmax(
+          0,
+          40rem
+        ) minmax(1rem, 1fr);
+    }
+  }
+
+  .grid-container--crew > :global(.numbered-title) {
+    grid-area: title;
+  }
+
+  .crew-info {
+    grid-area: info;
+
+    @include desktop {
+      align-self: end;
+    }
+
+    article {
+      margin-top: 2rem;
+    }
+
+    header {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .crew-bio {
+    max-width: 50ch;
+  }
+
+  :global(.grid-container--crew .dot-indicators) {
+    grid-area: dots;
+    padding-block: 2rem;
+
+    @include desktop {
+      padding-block: 0;
+    }
+  }
+
+  .crew-images {
+    grid-area: image;
+    border-bottom: 1px solid hsl(0 0% 100% / 0.1);
+    max-width: 60%;
+    margin-inline: auto;
+
+    @include tablet {
+      max-width: 50%;
+      border-bottom: none;
+    }
+
+    @include desktop {
+      max-width: 100%;
+      align-self: end;
+    }
+
+    img {
+      margin-inline: auto;
+    }
+  }
+</style>
+
+<script>
+  const dots = document.querySelectorAll(".dot-button");
+  const panels = document.querySelectorAll(".content-panel");
+  const crewCount = dots.length;
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener("click", () => {
+      dots.forEach((d) => d.setAttribute("aria-selected", "false"));
+      dot.setAttribute("aria-selected", "true");
+      panels.forEach((p) => p.setAttribute("data-visible", "false"));
+      // Show info panel and image panel
+      panels[i]?.setAttribute("data-visible", "true");
+      panels[i + crewCount]?.setAttribute("data-visible", "true");
+    });
+  });
+</script>

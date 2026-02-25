@@ -1,0 +1,146 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import NumberedTitle from "../components/NumberedTitle.astro";
+import NumberedIndicators from "../components/NumberedIndicators.astro";
+import data from "../data/data.json";
+
+const technology = data.technology;
+---
+
+<MainLayout title="Space Tourism | Technology" section="technology">
+  <section class="grid-container grid-container--technology">
+    <NumberedTitle number="03" text="Space launch 101" />
+
+    <div class="technology-images">
+      {
+        technology.map((tech, i) => (
+          <picture
+            class="content-panel"
+            data-visible={i === 0 ? "true" : "false"}
+          >
+            <source media="(min-width: 45em)" srcset={tech.images.portrait} />
+            <img src={tech.images.landscape} alt={tech.name} />
+          </picture>
+        ))
+      }
+    </div>
+
+    <div class="technology-info">
+      <NumberedIndicators count={technology.length} />
+
+      {
+        technology.map((tech, i) => (
+          <article
+            class="content-panel"
+            data-visible={i === 0 ? "true" : "false"}
+          >
+            <header>
+              <h2 class="fs-200 ff-sans-cond uppercase letter-spacing-3 text-light">
+                The terminology...
+              </h2>
+              <p class="fs-700 ff-serif uppercase">{tech.name}</p>
+            </header>
+            <p class="text-light">{tech.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</MainLayout>
+
+<style lang="scss">
+  @use "../styles/variables" as *;
+  @use "../styles/mixins" as *;
+
+  .grid-container--technology {
+    padding-inline: 0;
+    grid-template-areas:
+      "title"
+      "image"
+      "info";
+    padding-top: 1.5rem;
+
+    > :global(.numbered-title) {
+      grid-area: title;
+      padding-inline: 1rem;
+    }
+
+    @include desktop {
+      grid-template-areas:
+        ". title title ."
+        ". info image .";
+      grid-template-columns: minmax(1rem, 1fr) minmax(0, 55rem) minmax(
+          0,
+          30rem
+        ) minmax(0, 1fr);
+      padding-inline: 0;
+    }
+  }
+
+  .technology-images {
+    grid-area: image;
+    width: 100%;
+
+    picture {
+      width: 100%;
+    }
+
+    img {
+      width: 100%;
+      object-fit: cover;
+
+      @include desktop {
+        max-height: 530px;
+      }
+    }
+  }
+
+  .technology-info {
+    grid-area: info;
+    padding-inline: 1rem;
+
+    @include desktop {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      padding-inline: 0;
+    }
+
+    article {
+      margin-top: 1.5rem;
+
+      @include desktop {
+        margin-top: 0;
+      }
+
+      header {
+        margin-bottom: 1rem;
+
+        h2 {
+          margin-bottom: 0.5rem;
+        }
+      }
+
+      p {
+        max-width: 50ch;
+      }
+    }
+  }
+</style>
+
+<script>
+  const numberBtns = document.querySelectorAll(".number-button");
+  const panels = document.querySelectorAll(".content-panel");
+  const techCount = numberBtns.length;
+
+  numberBtns.forEach((btn, i) => {
+    btn.addEventListener("click", () => {
+      numberBtns.forEach((b) => b.setAttribute("aria-selected", "false"));
+      btn.setAttribute("aria-selected", "true");
+      panels.forEach((p) => p.setAttribute("data-visible", "false"));
+      // Show image panel and info panel
+      panels[i]?.setAttribute("data-visible", "true");
+      panels[i + techCount]?.setAttribute("data-visible", "true");
+    });
+  });
+</script>

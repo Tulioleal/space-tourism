@@ -1,0 +1,100 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout title="Space Tourism | Home" section="home">
+  <section class="grid-container grid-container--home">
+    <div>
+      <h1 class="text-light ff-sans-cond fs-500 uppercase letter-spacing-1">
+        So, you want to travel to
+        <span class="fs-900 ff-serif text-white d-block">Space</span>
+      </h1>
+      <p class="text-light">
+        Let's face it; if you want to go to space, you might as well genuinely
+        go to outer space and not hover kind of on the edge of it. Well sit
+        back, and relax because we'll give you a truly out of this world
+        experience!
+      </p>
+    </div>
+    <div>
+      <a
+        href="/destination"
+        class="large-button uppercase ff-serif fs-600 text-dark bg-white"
+      >
+        Explore
+      </a>
+    </div>
+  </section>
+</MainLayout>
+
+<style lang="scss">
+  @use "../styles/variables" as *;
+  @use "../styles/mixins" as *;
+
+  .d-block {
+    display: block;
+  }
+
+  .grid-container--home {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+
+    > * {
+      max-width: 50ch;
+    }
+
+    @include desktop {
+      align-items: end;
+      padding-bottom: max(6rem, 20vh);
+
+      > *:first-child {
+        grid-column: 2;
+      }
+
+      > *:last-child {
+        grid-column: 3;
+        justify-self: end;
+      }
+    }
+  }
+
+  .large-button {
+    display: inline-grid;
+    place-items: center;
+    padding: 0 2em;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
+    font-size: 1.25rem;
+
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      background: hsl(0 0% 100% / 0.1);
+      border-radius: 50%;
+      opacity: 0;
+      transition:
+        opacity 0.5s linear,
+        transform 0.75s ease-in-out;
+    }
+
+    &:hover::after,
+    &:focus::after {
+      opacity: 1;
+      transform: scale(1.5);
+    }
+
+    @include tablet {
+      font-size: 2rem;
+    }
+  }
+
+  .bg-white {
+    background-color: $clr-white;
+  }
+</style>

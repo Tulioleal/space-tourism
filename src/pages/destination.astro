@@ -1,0 +1,158 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import NumberedTitle from "../components/NumberedTitle.astro";
+import TabBar from "../components/TabBar.astro";
+import data from "../data/data.json";
+
+const destinations = data.destinations;
+---
+
+<MainLayout title="Space Tourism | Destination" section="destination">
+  <section class="grid-container grid-container--destination">
+    <NumberedTitle number="01" text="Pick your destination" />
+
+    <div class="destination-images">
+      {
+        destinations.map((dest, i) => (
+          <picture
+            class="content-panel"
+            data-visible={i === 0 ? "true" : "false"}
+          >
+            <source srcset={dest.images.webp} type="image/webp" />
+            <img src={dest.images.png} alt={dest.name} />
+          </picture>
+        ))
+      }
+    </div>
+
+    <div class="destination-info">
+      <TabBar items={destinations.map((d) => d.name)} />
+
+      {
+        destinations.map((dest, i) => (
+          <article
+            class="content-panel"
+            data-visible={i === 0 ? "true" : "false"}
+          >
+            <h2 class="fs-800 ff-serif uppercase">{dest.name}</h2>
+            <p class="text-light">{dest.description}</p>
+            <div class="destination-meta">
+              <div>
+                <h3 class="fs-200 ff-sans-cond uppercase letter-spacing-3 text-light">
+                  Avg. distance
+                </h3>
+                <p class="ff-serif fs-600 uppercase">{dest.distance}</p>
+              </div>
+              <div>
+                <h3 class="fs-200 ff-sans-cond uppercase letter-spacing-3 text-light">
+                  Est. travel time
+                </h3>
+                <p class="ff-serif fs-600 uppercase">{dest.travel}</p>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</MainLayout>
+
+<style lang="scss">
+  @use "../styles/variables" as *;
+  @use "../styles/mixins" as *;
+
+  .grid-container--destination {
+    grid-template-areas:
+      "title"
+      "image"
+      "tabs";
+    padding-top: 1.5rem;
+
+    > :global(.numbered-title) {
+      grid-area: title;
+    }
+
+    @include desktop {
+      justify-items: start;
+      align-content: start;
+      grid-template-areas:
+        ". title title ."
+        ". image tabs .";
+      grid-template-columns: minmax(1rem, 1fr) minmax(0, 40rem) minmax(
+          0,
+          40rem
+        ) minmax(1rem, 1fr);
+    }
+  }
+
+  .destination-images {
+    grid-area: image;
+
+    picture {
+      max-width: 60%;
+      margin-inline: auto;
+
+      @include tablet {
+        max-width: 300px;
+      }
+
+      @include desktop {
+        max-width: 445px;
+      }
+    }
+  }
+
+  .destination-info {
+    grid-area: tabs;
+
+    article {
+      margin-top: 1rem;
+    }
+
+    h2 {
+      margin-top: 0.75rem;
+    }
+
+    p {
+      max-width: 50ch;
+    }
+  }
+
+  .destination-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-top: 1px solid hsl(0 0% 100% / 0.1);
+    padding-top: 1.75rem;
+    margin-top: 1.75rem;
+
+    @include tablet {
+      flex-direction: row;
+      justify-content: center;
+      gap: min(5vw, 5rem);
+    }
+
+    @include desktop {
+      justify-content: flex-start;
+    }
+  }
+</style>
+
+<script>
+  const tabs = document.querySelectorAll(".tab-button");
+  const panels = document.querySelectorAll(".content-panel");
+  const imageCount = document.querySelectorAll(
+    ".destination-images .content-panel",
+  ).length;
+
+  tabs.forEach((tab, i) => {
+    tab.addEventListener("click", () => {
+      tabs.forEach((t) => t.setAttribute("aria-selected", "false"));
+      tab.setAttribute("aria-selected", "true");
+      panels.forEach((p) => p.setAttribute("data-visible", "false"));
+      // Show image panel and info panel
+      panels[i]?.setAttribute("data-visible", "true");
+      panels[i + imageCount]?.setAttribute("data-visible", "true");
+    });
+  });
+</script>
