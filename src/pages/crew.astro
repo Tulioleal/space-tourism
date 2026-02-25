@@ -58,9 +58,9 @@ const crew = data.crew;
   .grid-container--crew {
     grid-template-areas:
       "title"
-      "image"
+      "info"
       "dots"
-      "info";
+      "image";
     padding-top: 1.5rem;
 
     @include tablet {
@@ -87,21 +87,28 @@ const crew = data.crew;
 
   .grid-container--crew > :global(.numbered-title) {
     grid-area: title;
+    align-self: center;
+
+    @include tablet {
+      width: 100%;
+      align-self: end;
+    }
   }
 
   .crew-info {
     grid-area: info;
+    margin: 2rem 0;
 
     @include desktop {
       align-self: end;
     }
 
-    article {
-      margin-top: 2rem;
-    }
-
     header {
       margin-bottom: 1rem;
+
+      h2 {
+        margin-bottom: 0.5rem;
+      }
     }
   }
 
