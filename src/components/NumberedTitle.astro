@@ -16,7 +16,7 @@ const { number, text } = Astro.props;
   @use "../styles/mixins" as *;
 
   .numbered-title {
-    font-size: $fs-700;
+    font-size: $fs-500;
     text-align: center;
 
     span {
@@ -26,11 +26,13 @@ const { number, text } = Astro.props;
     }
 
     @include tablet {
+      font-size: $fs-600;
       text-align: left;
       margin-left: 2rem;
     }
 
     @include desktop {
+      font-size: $fs-700;
       margin-left: 0;
     }
   }
