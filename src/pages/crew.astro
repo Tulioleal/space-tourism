@@ -12,8 +12,6 @@ const crew = data.crew;
     <NumberedTitle number="02" text="Meet your crew" />
 
     <div class="crew-info">
-      <DotIndicators count={crew.length} />
-
       {
         crew.map((member, i) => (
           <article
@@ -34,6 +32,8 @@ const crew = data.crew;
         ))
       }
     </div>
+
+    <DotIndicators count={crew.length} />
 
     <div class="crew-images">
       {
@@ -76,11 +76,12 @@ const crew = data.crew;
       grid-template-areas:
         ". title title ."
         ". info image ."
-        ". info image .";
-      grid-template-columns: minmax(1rem, 1fr) minmax(0, 40rem) minmax(
-          0,
-          40rem
-        ) minmax(1rem, 1fr);
+        ". dots image .";
+      grid-template-columns:
+        minmax(1rem, 1fr)
+        minmax(0, 40rem)
+        minmax(0, 40rem)
+        minmax(1rem, 1fr);
     }
   }
 
@@ -111,15 +112,16 @@ const crew = data.crew;
   :global(.grid-container--crew .dot-indicators) {
     grid-area: dots;
     padding-block: 2rem;
+    align-self: flex-end;
 
     @include desktop {
       padding-block: 0;
+      margin-bottom: 2rem;
     }
   }
 
   .crew-images {
     grid-area: image;
-    border-bottom: 1px solid hsl(0 0% 100% / 0.1);
     max-width: 60%;
     margin-inline: auto;
 
@@ -130,11 +132,24 @@ const crew = data.crew;
 
     @include desktop {
       max-width: 100%;
+      height: 100%;
+      min-height: 700px;
       align-self: end;
+      align-content: end;
     }
 
     img {
       margin-inline: auto;
+    }
+
+    /* Fade effect on crew images from bottom to transparent */
+    picture {
+      mask-image: linear-gradient(to bottom, $clr-dark 85%, transparent);
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        $clr-dark 85%,
+        transparent
+      );
     }
   }
 </style>
