@@ -80,8 +80,10 @@ const technology = data.technology;
   .technology-images {
     grid-area: image;
     width: 100%;
+    display: grid;
 
     picture {
+      grid-area: 1 / 1;
       width: 100%;
     }
 
@@ -94,19 +96,23 @@ const technology = data.technology;
   .technology-info {
     grid-area: info;
     padding-inline: 1rem;
+    display: grid;
 
     @include desktop {
       width: 100%;
-      display: flex;
+      display: grid;
+      grid-template-columns: auto 1fr;
       gap: 2rem;
-      align-items: flex-start;
+      align-items: start;
       padding-inline: 0;
     }
 
     article {
+      grid-area: 1 / 1;
       margin-top: 1.5rem;
 
       @include desktop {
+        grid-area: 1 / 2;
         margin-top: 0;
       }
 

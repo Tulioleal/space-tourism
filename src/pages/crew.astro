@@ -76,6 +76,8 @@ const crew = data.crew;
       grid-template-areas:
         ". title title ."
         ". info image ."
+        ". info image ."
+        ". info image ."
         ". dots image .";
       grid-template-columns:
         minmax(1rem, 1fr)
@@ -97,10 +99,22 @@ const crew = data.crew;
 
   .crew-info {
     grid-area: info;
-    margin: 2rem 0;
+    position: relative;
+    width: 100%;
+    height: 100%;
 
     @include desktop {
       align-self: end;
+    }
+
+    .content-panel {
+      position: absolute;
+      top: 0%;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     header {
@@ -113,7 +127,7 @@ const crew = data.crew;
   }
 
   .crew-bio {
-    max-width: 50ch;
+    max-width: 55ch;
   }
 
   :global(.grid-container--crew .dot-indicators) {
@@ -129,8 +143,10 @@ const crew = data.crew;
 
   .crew-images {
     grid-area: image;
+    width: 100%;
     max-width: 60%;
     margin-inline: auto;
+    position: relative;
 
     @include tablet {
       max-width: 50%;
@@ -151,6 +167,9 @@ const crew = data.crew;
 
     /* Fade effect on crew images from bottom to transparent */
     picture {
+      position: absolute;
+      width: 100%;
+      bottom: 0;
       mask-image: linear-gradient(to bottom, $clr-dark 85%, transparent);
       -webkit-mask-image: linear-gradient(
         to bottom,
