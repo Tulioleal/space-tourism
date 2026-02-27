@@ -18,7 +18,7 @@ const technology = data.technology;
             class="content-panel"
             data-visible={i === 0 ? "true" : "false"}
           >
-            <source media="(min-width: 768px)" srcset={tech.images.portrait} />
+            <source media="(min-width: 720px)" srcset={tech.images.portrait} />
             <img src={tech.images.landscape} alt={tech.name} />
           </picture>
         ))
@@ -59,16 +59,22 @@ const technology = data.technology;
       "image"
       "info";
     padding-top: 1.5rem;
-    row-gap: 5rem;
+    row-gap: 2rem;
 
     > :global(.numbered-title) {
       grid-area: title;
       padding-inline: 1rem;
       width: 100%;
       align-self: start;
+      margin-bottom: 2rem;
+
+      @include desktop {
+        margin-bottom: 0;
+      }
     }
 
     @include desktop {
+      row-gap: 5rem;
       grid-template-areas:
         ". title title"
         ". info image";
@@ -81,10 +87,13 @@ const technology = data.technology;
     grid-area: image;
     width: 100%;
     display: grid;
+    min-width: 0;
+    overflow: hidden;
 
     picture {
       grid-area: 1 / 1;
       width: 100%;
+      min-width: 0;
     }
 
     img {
@@ -97,22 +106,32 @@ const technology = data.technology;
     grid-area: info;
     padding-inline: 1rem;
     display: grid;
+    grid-template-rows: auto 1fr;
+    min-width: 0;
+    overflow: hidden;
 
     @include desktop {
       width: 100%;
-      display: grid;
+      grid-template-rows: none;
       grid-template-columns: auto 1fr;
       gap: 2rem;
       align-items: start;
       padding-inline: 0;
     }
 
+    :global(.numbered-indicators) {
+      grid-row: 1;
+    }
+
     article {
-      grid-area: 1 / 1;
+      grid-row: 2;
+      grid-column: 1;
       margin-top: 1.5rem;
+      min-width: 0;
 
       @include desktop {
-        grid-area: 1 / 2;
+        grid-row: 1;
+        grid-column: 2;
         margin-top: 0;
       }
 

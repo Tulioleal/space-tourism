@@ -79,19 +79,7 @@ const destinations = data.destinations;
 
     @include desktop {
       row-gap: 10rem;
-      grid-template-areas:
-        ". title title ."
-        ". image tabs .";
-      grid-template-columns:
-        minmax(1rem, 1fr)
-        minmax(0, 40rem)
-        minmax(0, 40rem)
-        minmax(1rem, 1fr);
-    }
-
-    @include desktop {
       align-content: start;
-
       grid-template-areas:
         ". title title ."
         ". image tabs .";
@@ -106,18 +94,20 @@ const destinations = data.destinations;
   .destination-images {
     grid-area: image;
     width: 100%;
-    position: relative;
-    display: flex;
-    justify-content: center;
+    display: grid;
+    justify-items: center;
+    min-width: 0;
+    overflow: hidden;
 
     @include desktop {
-      justify-content: end;
+      justify-items: end;
     }
 
     picture {
+      grid-area: 1 / 1;
       width: 100%;
+      min-width: 0;
       max-width: 60%;
-      position: absolute;
 
       @include tablet {
         max-width: 300px;
@@ -126,20 +116,25 @@ const destinations = data.destinations;
       @include desktop {
         max-width: 445px;
       }
+
+      img {
+        width: 100%;
+        object-fit: contain;
+      }
     }
   }
 
   .destination-info {
     grid-area: tabs;
-    position: relative;
-    width: 44ch;
+    display: grid;
 
-    .content-panel {
-      width: 100%;
-      position: absolute;
+    @include desktop {
+      max-width: 44ch;
     }
 
     article {
+      grid-area: 1 / 1;
+      min-width: 0;
       margin-top: 1rem;
     }
 
