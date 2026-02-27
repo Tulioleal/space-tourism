@@ -18,7 +18,7 @@ const technology = data.technology;
             class="content-panel"
             data-visible={i === 0 ? "true" : "false"}
           >
-            <source media="(min-width: 45em)" srcset={tech.images.portrait} />
+            <source media="(min-width: 720px)" srcset={tech.images.portrait} />
             <img src={tech.images.landscape} alt={tech.name} />
           </picture>
         ))
@@ -35,7 +35,7 @@ const technology = data.technology;
             data-visible={i === 0 ? "true" : "false"}
           >
             <header>
-              <h2 class="fs-200 ff-sans-cond uppercase letter-spacing-3 text-light">
+              <h2 class="ff-sans-cond uppercase letter-spacing-3 text-light">
                 The terminology...
               </h2>
               <p class="fs-700 ff-serif uppercase">{tech.name}</p>
@@ -59,20 +59,26 @@ const technology = data.technology;
       "image"
       "info";
     padding-top: 1.5rem;
+    row-gap: 2rem;
 
     > :global(.numbered-title) {
       grid-area: title;
       padding-inline: 1rem;
+      width: 100%;
+      align-self: start;
+      margin-bottom: 2rem;
+
+      @include desktop {
+        margin-bottom: 0;
+      }
     }
 
     @include desktop {
+      row-gap: 5rem;
       grid-template-areas:
-        ". title title ."
-        ". info image .";
-      grid-template-columns: minmax(1rem, 1fr) minmax(0, 55rem) minmax(
-          0,
-          30rem
-        ) minmax(0, 1fr);
+        ". title title"
+        ". info image";
+      grid-template-columns: minmax(1rem, 1fr) minmax(0, 55rem) minmax(0, 600px);
       padding-inline: 0;
     }
   }
@@ -80,36 +86,52 @@ const technology = data.technology;
   .technology-images {
     grid-area: image;
     width: 100%;
+    display: grid;
+    min-width: 0;
+    overflow: hidden;
 
     picture {
+      grid-area: 1 / 1;
       width: 100%;
+      min-width: 0;
     }
 
     img {
       width: 100%;
       object-fit: cover;
-
-      @include desktop {
-        max-height: 530px;
-      }
     }
   }
 
   .technology-info {
     grid-area: info;
     padding-inline: 1rem;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    min-width: 0;
+    overflow: hidden;
 
     @include desktop {
-      display: flex;
+      width: 100%;
+      grid-template-rows: none;
+      grid-template-columns: auto 1fr;
       gap: 2rem;
-      align-items: flex-start;
+      align-items: start;
       padding-inline: 0;
     }
 
+    :global(.numbered-indicators) {
+      grid-row: 1;
+    }
+
     article {
+      grid-row: 2;
+      grid-column: 1;
       margin-top: 1.5rem;
+      min-width: 0;
 
       @include desktop {
+        grid-row: 1;
+        grid-column: 2;
         margin-top: 0;
       }
 
@@ -118,6 +140,7 @@ const technology = data.technology;
 
         h2 {
           margin-bottom: 0.5rem;
+          font-size: $fs-700;
         }
       }
 

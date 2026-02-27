@@ -26,11 +26,13 @@ const { number, text } = Astro.props;
     }
 
     @include tablet {
+      font-size: $fs-600;
       text-align: left;
       margin-left: 2rem;
     }
 
     @include desktop {
+      font-size: $fs-700;
       margin-left: 0;
     }
   }

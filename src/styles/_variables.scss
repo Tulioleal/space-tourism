@@ -8,14 +8,22 @@ $ff-serif: "Bellefair", serif;
 $ff-sans-cond: "Barlow Condensed", sans-serif;
 $ff-sans: "Barlow", sans-serif;
 
-// Font sizes (mobile-first)
+// Font sizes (mobile-first, desktop targets from design spec)
+// Preset 1: 144px = 9rem
 $fs-900: clamp(5rem, 8vw + 1rem, 9.375rem);
+// Preset 2: 100px = 6.25rem
 $fs-800: 3.5rem;
+// Preset 3: 56px = 3.5rem
 $fs-700: 1.5rem;
+// Preset 4: 32px = 2rem
 $fs-600: 1rem;
+// Preset 5: 28px = 1.75rem (Barlow Condensed)
 $fs-500: 1rem;
+// Preset 9: 18px = 1.125rem (Barlow body)
 $fs-400: 0.9375rem;
+// Preset 6: 28px = 1.75rem (Bellefair)
 $fs-300: 1rem;
+// Preset 7: 14px = 0.875rem (Barlow Condensed)
 $fs-200: 0.875rem;
 
 // Breakpoints
