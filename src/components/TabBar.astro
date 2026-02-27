@@ -26,10 +26,10 @@ const { items } = Astro.props;
 
   .tab-list {
     display: flex;
-    gap: 1.5rem;
-    justify-content: center;
+    justify-content: space-evenly;
 
     @media (min-width: $bp-desktop) {
+      gap: 1.5rem;
       justify-content: flex-start;
     }
   }
@@ -41,7 +41,7 @@ const { items } = Astro.props;
     color: $clr-light;
     padding-block: 0.75rem;
     cursor: pointer;
-    font-size: $fs-300;
+    font-size: $fs-500;
 
     &:hover {
       border-color: hsl(0 0% 100% / 0.5);

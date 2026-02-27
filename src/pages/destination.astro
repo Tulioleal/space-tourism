@@ -38,13 +38,13 @@ const destinations = data.destinations;
             <p class="text-light">{dest.description}</p>
             <div class="destination-meta">
               <div>
-                <h3 class="fs-200 ff-sans-cond uppercase letter-spacing-3 text-light">
+                <h3 class="fs-400 ff-sans-cond uppercase letter-spacing-3 text-light">
                   Avg. distance
                 </h3>
                 <p class="ff-serif fs-600 uppercase">{dest.distance}</p>
               </div>
               <div>
-                <h3 class="fs-200 ff-sans-cond uppercase letter-spacing-3 text-light">
+                <h3 class="fs-400 ff-sans-cond uppercase letter-spacing-3 text-light">
                   Est. travel time
                 </h3>
                 <p class="ff-serif fs-600 uppercase">{dest.travel}</p>
@@ -67,30 +67,47 @@ const destinations = data.destinations;
       "image"
       "tabs";
     padding-top: 1.5rem;
+    row-gap: 3rem;
 
     > :global(.numbered-title) {
       grid-area: title;
+
+      @include tablet {
+        width: 100%;
+      }
     }
 
     @include desktop {
-      justify-items: start;
+      row-gap: 10rem;
       align-content: start;
       grid-template-areas:
         ". title title ."
         ". image tabs .";
-      grid-template-columns: minmax(1rem, 1fr) minmax(0, 40rem) minmax(
-          0,
-          40rem
-        ) minmax(1rem, 1fr);
+      grid-template-columns:
+        minmax(1rem, 1fr)
+        minmax(0, 40rem)
+        minmax(0, 40rem)
+        minmax(1rem, 1fr);
     }
   }
 
   .destination-images {
     grid-area: image;
+    width: 100%;
+    display: grid;
+    justify-items: center;
+    min-width: 0;
+    overflow: hidden;
+
+    @include desktop {
+      justify-items: end;
+    }
 
     picture {
+      grid-area: 1 / 1;
+      width: 100%;
+      min-width: 0;
       max-width: 60%;
-      margin-inline: auto;
 
       @include tablet {
         max-width: 300px;
@@ -99,22 +116,30 @@ const destinations = data.destinations;
       @include desktop {
         max-width: 445px;
       }
+
+      img {
+        width: 100%;
+        object-fit: contain;
+      }
     }
   }
 
   .destination-info {
     grid-area: tabs;
+    display: grid;
+
+    @include desktop {
+      max-width: 44ch;
+    }
 
     article {
+      grid-area: 1 / 1;
+      min-width: 0;
       margin-top: 1rem;
     }
 
     h2 {
       margin-top: 0.75rem;
-    }
-
-    p {
-      max-width: 50ch;
     }
   }
 
@@ -139,20 +164,6 @@ const destinations = data.destinations;
 </style>
 
 <script>
-  const tabs = document.querySelectorAll(".tab-button");
-  const panels = document.querySelectorAll(".content-panel");
-  const imageCount = document.querySelectorAll(
-    ".destination-images .content-panel",
-  ).length;
-
-  tabs.forEach((tab, i) => {
-    tab.addEventListener("click", () => {
-      tabs.forEach((t) => t.setAttribute("aria-selected", "false"));
-      tab.setAttribute("aria-selected", "true");
-      panels.forEach((p) => p.setAttribute("data-visible", "false"));
-      // Show image panel and info panel
-      panels[i]?.setAttribute("data-visible", "true");
-      panels[i + imageCount]?.setAttribute("data-visible", "true");
-    });
-  });
+  import { initTabSwitcher } from "../scripts/tab-switcher";
+  initTabSwitcher(".tab-button");
 </script>

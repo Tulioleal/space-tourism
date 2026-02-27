@@ -12,8 +12,6 @@ const crew = data.crew;
     <NumberedTitle number="02" text="Meet your crew" />
 
     <div class="crew-info">
-      <DotIndicators count={crew.length} />
-
       {
         crew.map((member, i) => (
           <article
@@ -34,6 +32,8 @@ const crew = data.crew;
         ))
       }
     </div>
+
+    <DotIndicators count={crew.length} />
 
     <div class="crew-images">
       {
@@ -58,74 +58,95 @@ const crew = data.crew;
   .grid-container--crew {
     grid-template-areas:
       "title"
-      "image"
+      "info"
       "dots"
-      "info";
+      "image";
     padding-top: 1.5rem;
-
-    @include tablet {
-      grid-template-areas:
-        "title"
-        "info"
-        "dots"
-        "image";
-    }
+    gap: 1rem;
 
     @include desktop {
       justify-items: start;
       grid-template-areas:
         ". title title ."
         ". info image ."
-        ". info image .";
-      grid-template-columns: minmax(1rem, 1fr) minmax(0, 40rem) minmax(
-          0,
-          40rem
-        ) minmax(1rem, 1fr);
+        ". info image ."
+        ". info image ."
+        ". dots image .";
+      grid-template-columns:
+        minmax(1rem, 1fr)
+        minmax(0, 40rem)
+        minmax(0, 40rem)
+        minmax(1rem, 1fr);
     }
   }
 
   .grid-container--crew > :global(.numbered-title) {
     grid-area: title;
+    align-self: center;
+
+    @include tablet {
+      width: 100%;
+      align-self: end;
+      margin-bottom: 2rem;
+    }
   }
 
   .crew-info {
     grid-area: info;
+    display: grid;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
 
-    @include desktop {
-      align-self: end;
-    }
-
-    article {
-      margin-top: 2rem;
+    .content-panel {
+      grid-area: 1 / 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     header {
       margin-bottom: 1rem;
+
+      h2 {
+        margin-bottom: 0.5rem;
+      }
     }
   }
 
   .crew-bio {
-    max-width: 50ch;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+
+    @include desktop {
+      max-width: 55ch;
+    }
   }
 
   :global(.grid-container--crew .dot-indicators) {
     grid-area: dots;
     padding-block: 2rem;
+    align-self: flex-end;
 
     @include desktop {
       padding-block: 0;
+      margin-bottom: 2rem;
     }
   }
 
   .crew-images {
     grid-area: image;
-    border-bottom: 1px solid hsl(0 0% 100% / 0.1);
+    display: grid;
+    width: 100%;
     max-width: 60%;
     margin-inline: auto;
 
     @include tablet {
       max-width: 50%;
       border-bottom: none;
+      align-items: end;
     }
 
     @include desktop {
@@ -136,22 +157,23 @@ const crew = data.crew;
     img {
       margin-inline: auto;
     }
+
+    /* Fade effect on crew images from bottom to transparent */
+    picture {
+      grid-area: 1 / 1;
+      width: 100%;
+      height: fit-content;
+      mask-image: linear-gradient(to bottom, $clr-dark 85%, transparent);
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        $clr-dark 85%,
+        transparent
+      );
+    }
   }
 </style>
 
 <script>
-  const dots = document.querySelectorAll(".dot-button");
-  const panels = document.querySelectorAll(".content-panel");
-  const crewCount = dots.length;
-
-  dots.forEach((dot, i) => {
-    dot.addEventListener("click", () => {
-      dots.forEach((d) => d.setAttribute("aria-selected", "false"));
-      dot.setAttribute("aria-selected", "true");
-      panels.forEach((p) => p.setAttribute("data-visible", "false"));
-      // Show info panel and image panel
-      panels[i]?.setAttribute("data-visible", "true");
-      panels[i + crewCount]?.setAttribute("data-visible", "true");
-    });
-  });
+  import { initTabSwitcher } from "../scripts/tab-switcher";
+  initTabSwitcher(".dot-button");
 </script>

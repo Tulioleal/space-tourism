@@ -3,29 +3,41 @@ import MainLayout from "../layouts/MainLayout.astro";
 ---
 
 <MainLayout title="Space Tourism | Home" section="home">
-  <section class="grid-container grid-container--home">
-    <div>
-      <h1 class="text-light ff-sans-cond fs-500 uppercase letter-spacing-1">
-        So, you want to travel to
-        <span class="fs-900 ff-serif text-white d-block">Space</span>
-      </h1>
-      <p class="text-light">
-        Let's face it; if you want to go to space, you might as well genuinely
-        go to outer space and not hover kind of on the edge of it. Well sit
-        back, and relax because we'll give you a truly out of this world
-        experience!
-      </p>
-    </div>
-    <div>
-      <a
-        href="/destination"
-        class="large-button uppercase ff-serif fs-600 text-dark bg-white"
-      >
-        Explore
-      </a>
+  <section class="section--home">
+    <div class="grid-container grid-container--home">
+      <div>
+        <h1 class="text-light ff-sans-cond fs-500 uppercase letter-spacing-1">
+          So, you want to travel to
+          <span class="fs-900 ff-serif text-white d-block">Space</span>
+        </h1>
+        <p class="text-light">
+          Let's face it; if you want to go to space, you might as well genuinely
+          go to outer space and not hover kind of on the edge of it. Well sit
+          back, and relax because we'll give you a truly out of this world
+          experience!
+        </p>
+      </div>
+      <div>
+        <a
+          href="/destination"
+          class="large-button uppercase ff-serif fs-600 text-dark bg-white"
+        >
+          Explore
+        </a>
+      </div>
     </div>
   </section>
 </MainLayout>
+
+<style lang="scss" is:global>
+  @use "../styles/variables" as *;
+  @use "../styles/mixins" as *;
+
+  .page-wrapper--home main {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
 
 <style lang="scss">
   @use "../styles/variables" as *;
@@ -35,16 +47,29 @@ import MainLayout from "../layouts/MainLayout.astro";
     display: block;
   }
 
+  .section--home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+
+    @include desktop {
+      justify-content: flex-end;
+    }
+  }
+
   .grid-container--home {
     padding-top: 2rem;
     padding-bottom: 4rem;
+    align-items: center;
+    gap: 2rem;
 
     > * {
       max-width: 50ch;
     }
 
     @include desktop {
-      align-items: end;
+      margin-top: auto;
       padding-bottom: max(6rem, 20vh);
 
       > *:first-child {
@@ -68,6 +93,7 @@ import MainLayout from "../layouts/MainLayout.astro";
     position: relative;
     z-index: 1;
     font-size: 1.25rem;
+    margin-top: 3rem;
 
     &::after {
       content: "";
