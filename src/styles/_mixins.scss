@@ -13,16 +13,16 @@
 }
 
 @mixin responsive-bg($section) {
-  background-image: url("/assets/#{$section}/background-#{$section}-mobile.jpg");
+  background-image: url("/space-tourism/assets/#{$section}/background-#{$section}-mobile.jpg");
   background-size: cover;
   background-position: bottom center;
 
   @include tablet {
-    background-image: url("/assets/#{$section}/background-#{$section}-tablet.jpg");
+    background-image: url("/space-tourism/assets/#{$section}/background-#{$section}-tablet.jpg");
     background-position: center center;
   }
 
   @include desktop {
-    background-image: url("/assets/#{$section}/background-#{$section}-desktop.jpg");
+    background-image: url("/space-tourism/assets/#{$section}/background-#{$section}-desktop.jpg");
   }
 }

@@ -5,19 +5,20 @@ interface Props {
 
 const { activeNav } = Astro.props;
 
+const base = import.meta.env.BASE_URL;
 const navItems = [
-  { number: "00", text: "Home", href: "/" },
-  { number: "01", text: "Destination", href: "/destination" },
-  { number: "02", text: "Crew", href: "/crew" },
-  { number: "03", text: "Technology", href: "/technology" },
+  { number: "00", text: "Home", href: base },
+  { number: "01", text: "Destination", href: `${base}destination` },
+  { number: "02", text: "Crew", href: `${base}crew` },
+  { number: "03", text: "Technology", href: `${base}technology` },
 ];
 ---
 
 <header class="primary-header">
   <div>
-    <a href="/">
+    <a href={base}>
       <img
-        src="/assets/shared/logo.svg"
+        src={`${base}assets/shared/logo.svg`}
         alt="Space tourism logo"
         class="logo"
       />
@@ -168,12 +169,12 @@ const navItems = [
       cursor: pointer;
       width: 1.5rem;
       aspect-ratio: 1;
-      background-image: url("/assets/shared/icon-hamburger.svg");
+      background-image: url("/space-tourism/assets/shared/icon-hamburger.svg");
       background-repeat: no-repeat;
       background-position: center;
 
       &[aria-expanded="true"] {
-        background-image: url("/assets/shared/icon-close.svg");
+        background-image: url("/space-tourism/assets/shared/icon-close.svg");
       }
     }
   }
