@@ -31,7 +31,11 @@ const navItems = [
     <span class="sr-only">Menu</span>
   </button>
   <nav>
-    <ul id="primary-navigation" class="primary-navigation" data-visible="true">
+    <ul
+      id="primary-navigation"
+      class="primary-navigation"
+      data-visible-menu="false"
+    >
       {
         navItems.map((item) => (
           <li class={activeNav === item.text.toLowerCase() ? "active" : ""}>
@@ -143,7 +147,7 @@ const navItems = [
       transform: translateX(100%);
       transition: transform 0.3s ease-in-out;
 
-      &[data-visible="true"] {
+      &[data-visible-menu="true"] {
         transform: translateX(0);
       }
 
@@ -180,8 +184,8 @@ const navItems = [
   const navToggle = document.querySelector(".mobile-nav-toggle");
 
   navToggle?.addEventListener("click", () => {
-    const isVisible = nav?.getAttribute("data-visible") === "true";
-    nav?.setAttribute("data-visible", String(!isVisible));
+    const isVisible = nav?.getAttribute("data-visible-menu") === "true";
+    nav?.setAttribute("data-visible-menu", String(!isVisible));
     navToggle.setAttribute("aria-expanded", String(!isVisible));
   });
 </script>
