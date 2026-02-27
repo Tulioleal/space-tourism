@@ -174,18 +174,6 @@ const crew = data.crew;
 </style>
 
 <script>
-  const dots = document.querySelectorAll(".dot-button");
-  const panels = document.querySelectorAll(".content-panel");
-  const crewCount = dots.length;
-
-  dots.forEach((dot, i) => {
-    dot.addEventListener("click", () => {
-      dots.forEach((d) => d.setAttribute("aria-selected", "false"));
-      dot.setAttribute("aria-selected", "true");
-      panels.forEach((p) => p.setAttribute("data-visible", "false"));
-      // Show info panel and image panel
-      panels[i]?.setAttribute("data-visible", "true");
-      panels[i + crewCount]?.setAttribute("data-visible", "true");
-    });
-  });
+  import { initTabSwitcher } from "../scripts/tab-switcher";
+  initTabSwitcher(".dot-button");
 </script>

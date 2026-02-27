@@ -152,18 +152,6 @@ const technology = data.technology;
 </style>
 
 <script>
-  const numberBtns = document.querySelectorAll(".number-button");
-  const panels = document.querySelectorAll(".content-panel");
-  const techCount = numberBtns.length;
-
-  numberBtns.forEach((btn, i) => {
-    btn.addEventListener("click", () => {
-      numberBtns.forEach((b) => b.setAttribute("aria-selected", "false"));
-      btn.setAttribute("aria-selected", "true");
-      panels.forEach((p) => p.setAttribute("data-visible", "false"));
-      // Show image panel and info panel
-      panels[i]?.setAttribute("data-visible", "true");
-      panels[i + techCount]?.setAttribute("data-visible", "true");
-    });
-  });
+  import { initTabSwitcher } from "../scripts/tab-switcher";
+  initTabSwitcher(".number-button");
 </script>

@@ -164,20 +164,6 @@ const destinations = data.destinations;
 </style>
 
 <script>
-  const tabs = document.querySelectorAll(".tab-button");
-  const panels = document.querySelectorAll(".content-panel");
-  const imageCount = document.querySelectorAll(
-    ".destination-images .content-panel",
-  ).length;
-
-  tabs.forEach((tab, i) => {
-    tab.addEventListener("click", () => {
-      tabs.forEach((t) => t.setAttribute("aria-selected", "false"));
-      tab.setAttribute("aria-selected", "true");
-      panels.forEach((p) => p.setAttribute("data-visible", "false"));
-      // Show image panel and info panel
-      panels[i]?.setAttribute("data-visible", "true");
-      panels[i + imageCount]?.setAttribute("data-visible", "true");
-    });
-  });
+  import { initTabSwitcher } from "../scripts/tab-switcher";
+  initTabSwitcher(".tab-button");
 </script>
