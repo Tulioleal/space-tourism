@@ -8,9 +8,9 @@ const { activeNav } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const navItems = [
   { number: "00", text: "Home", href: base },
-  { number: "01", text: "Destination", href: `${base}destination` },
-  { number: "02", text: "Crew", href: `${base}crew` },
-  { number: "03", text: "Technology", href: `${base}technology` },
+  { number: "01", text: "Destination", href: `${base}/destination` },
+  { number: "02", text: "Crew", href: `${base}/crew` },
+  { number: "03", text: "Technology", href: `${base}/technology` },
 ];
 ---
 
@@ -18,7 +18,7 @@ const navItems = [
   <div>
     <a href={base}>
       <img
-        src={`${base}assets/shared/logo.svg`}
+        src={`${base}/assets/shared/logo.svg`}
         alt="Space tourism logo"
         class="logo"
       />
